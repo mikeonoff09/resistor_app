@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:resistor_app/config/constants/padding.dart';
+import 'package:resistor_app/presentation/widgets/background_widget.dart';
+import 'package:resistor_app/presentation/widgets/title_widget.dart';
 import 'package:resistor_app/theme/app_theme.dart';
-import 'dart:math';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -19,10 +22,9 @@ class _HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.grey,
       body: const Stack(
         children: [
-          _BackgroundWidget(),
+          BackgroundWidget(),
           _CalculatorWidget(),
         ],
       ),
@@ -33,7 +35,11 @@ class _HomeView extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
-        child: const Icon(Icons.menu, size: 35,color: Colors.white,),
+        child: const Icon(
+          Icons.menu,
+          size: 35,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -45,9 +51,10 @@ class _CalculatorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var padding = MediaQueryData.fromView(View.of(context)).padding;
+    final width = MediaQueryData.fromView(View.of(context)).size.width;
 
     return DefaultTabController(
-      length: 3,
+      length: 1,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +64,7 @@ class _CalculatorWidget extends StatelessWidget {
             height: 50,
             child: Placeholder(),
           ),
-          const _TitleWidget(),
+          const TitleWidget(),
           Center(
             child: Container(
               width: 300,
@@ -78,7 +85,6 @@ class _CalculatorWidget extends StatelessWidget {
                 indicatorSize: TabBarIndicatorSize.tab,
                 unselectedLabelColor: Colors.black54,
                 padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 2),
-                // isScrollable: true,
                 indicator: BoxDecoration(
                   color: AppTheme().themeData.primaryColor,
                   borderRadius: BorderRadius.circular(15),
@@ -89,28 +95,26 @@ class _CalculatorWidget extends StatelessWidget {
                   Tab(
                     text: "4 Bandas",
                   ),
-                  Tab(
-                    text: "5 Bandas",
-                  ),
-                  Tab(
-                    text: "6 Bandas",
-                  ),
+                  // Tab(
+                  //   text: "5 Bandas",
+                  // ),
+                  // Tab(
+                  //   text: "6 Bandas",
+                  // ),
                 ],
               ),
             ),
           ),
-          const Expanded(
+          Expanded(
             child: TabBarView(
               children: <Widget>[
-                Center(
-                  child: Text("It's cloudy here"),
-                ),
-                Center(
-                  child: Text("It's rainy here"),
-                ),
-                Center(
-                  child: Text("It's sunny here"),
-                ),
+                _FourBandsView(width: width),
+                // const Center(
+                //   child: Text("It's rainy here"),
+                // ),
+                // const Center(
+                //   child: Text("It's sunny here"),
+                // ),
               ],
             ),
           )
@@ -120,61 +124,194 @@ class _CalculatorWidget extends StatelessWidget {
   }
 }
 
-class _TitleWidget extends StatelessWidget {
-  const _TitleWidget();
+class _FourBandsView extends StatelessWidget {
+  const _FourBandsView({
+    super.key,
+    required this.width,
+  });
+
+  final double width;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20.0,
-        vertical: 16,
-      ),
-      child: Text(
-        "Resistor Color Calculator",
-        style: GoogleFonts.mulish(
-            fontSize: 40,
-            fontWeight: FontWeight.w800,
-            color: Colors.white.withAlpha(200)),
-      ),
+    return Column(
+      children: [
+        const Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: AppPadding.extraLarge,
+          ),
+          child: Center(
+            child: Text(
+              "40 kΩ",
+              style: TextStyle(
+                fontSize: 60,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppPadding.extraLarge,
+          ),
+          child: FourBandResistor(
+            width: width - (AppPadding.extraLarge * 2),
+            height: (width - (AppPadding.extraLarge * 2)) * 0.3,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: AppPadding.extraLarge),
+          child: Center(
+            child: Text(
+              "* toca la banda para seleccionar color",
+              style: GoogleFonts.mulish(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Colors.black87,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
 
-class _BackgroundWidget extends StatelessWidget {
-  const _BackgroundWidget();
+const List<String> _fruitNames = <String>[
+  'Apple',
+  'Mango',
+  'Banana',
+  'Orange',
+  'Pineapple',
+  'Strawberry',
+];
+
+class FourBandResistor extends StatefulWidget {
+  final double width;
+  final double height;
+  const FourBandResistor({
+    super.key,
+    required this.height,
+    required this.width,
+  });
+
+  @override
+  State<FourBandResistor> createState() => _FourBandResistorState();
+}
+
+class _FourBandResistorState extends State<FourBandResistor> {
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        // The Bottom margin is provided to align the popup above the system navigation bar.
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        // Provide a background color for the popup.
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        // Use a SafeArea widget to avoid system overlaps.
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: AppTheme().themeData.primaryColor,
-      height: 245,
+    int _selectedFruit = 0;
+    const double _kItemExtent = 32.0;
+    return SizedBox(
+      height: widget.height,
+      width: widget.width,
       child: Stack(
         children: [
-          Positioned(
-            top: -50,
-            left: 200,
-            child: Transform.rotate(
-              angle: 5 * pi / 6,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: const Color.fromARGB(100, 107, 93, 228),
-                ),
-                width: 400,
-                height: 170,
+          Center(
+            child: Container(
+              height: widget.height * 0.10,
+              width: widget.width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: const Color.fromARGB(255, 211, 211, 211),
+              ),
+            ),
+          ),
+          Center(
+            child: Container(
+              height: widget.height,
+              width: widget.width * 0.8,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: const Color.fromARGB(255, 248, 243, 232),
               ),
             ),
           ),
           Positioned(
-            top: -50,
-            left: -50,
+            left: widget.width * 0.20,
             child: Container(
-              width: 200,
-              height: 200,
+              height: widget.height,
+              width: widget.width * 0.1,
               decoration: const BoxDecoration(
-                color: Color.fromARGB(50, 63, 52, 147),
-                shape: BoxShape.circle,
+                color: Color.fromARGB(255, 211, 211, 211),
+              ),
+              child: InkWell(
+                child: Container(),
+                onTap: () => _showDialog(
+                  CupertinoPicker(
+                    magnification: 1.22,
+                    squeeze: 1.2,
+                    useMagnifier: true,
+                    itemExtent: _kItemExtent,
+                    // This sets the initial item.
+                    scrollController: FixedExtentScrollController(
+                      initialItem: _selectedFruit,
+                    ),
+                    // This is called when selected item is changed.
+                    onSelectedItemChanged: (int selectedItem) {
+                      setState(() {
+                        _selectedFruit = selectedItem;
+                      });
+                    },
+                    children:
+                        List<Widget>.generate(_fruitNames.length, (int index) {
+                      return Center(child: Text(_fruitNames[index]));
+                    }),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            left: widget.width * 0.35,
+            child: Container(
+              height: widget.height,
+              width: widget.width * 0.1,
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 211, 211, 211),
+              ),
+            ),
+          ),
+          Positioned(
+            left: widget.width * 0.50,
+            child: Container(
+              height: widget.height,
+              width: widget.width * 0.1,
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 211, 211, 211),
+              ),
+            ),
+          ),
+          Positioned(
+            left: widget.width * 0.70,
+            child: Container(
+              height: widget.height,
+              width: widget.width * 0.1,
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 211, 211, 211),
               ),
             ),
           ),
