@@ -35,7 +35,7 @@ enum Band implements Comparable<Band> {
     temperatureCoefficient: "15 ppm/K",
   ),
   yellow(
-    name: "Naranja",
+    name: "Amarillo",
     color: Colors.yellow,
     value: 4,
     multiplier: 10000,
@@ -43,7 +43,7 @@ enum Band implements Comparable<Band> {
     temperatureCoefficient: "15 ppm/K (P)",
   ),
   green(
-    name: "Naranja",
+    name: "Verde",
     color: Colors.green,
     value: 5,
     multiplier: 100000,
@@ -51,7 +51,7 @@ enum Band implements Comparable<Band> {
     temperatureCoefficient: "20 ppm/K (Z)",
   ),
   blue(
-    name: "Naranja",
+    name: "Azul",
     color: Colors.blue,
     value: 6,
     multiplier: 1000000,
@@ -59,15 +59,15 @@ enum Band implements Comparable<Band> {
     temperatureCoefficient: "10 ppm/K (Z)",
   ),
   violet(
-    name: "Naranja",
+    name: "Violeta",
     color: Color(0xff9400d3),
     value: 7,
     multiplier: 10000000,
     tolerance: "±0.1% (B)",
     temperatureCoefficient: "5 ppm/K (M)",
   ),
-  gray(
-    name: "Naranja",
+  grey(
+    name: "Gris",
     color: Color(0xff808080),
     value: 8,
     multiplier: 100000000,
@@ -75,7 +75,7 @@ enum Band implements Comparable<Band> {
     temperatureCoefficient: "1 ppm/K (K)",
   ),
   white(
-    name: "Naranja",
+    name: "Blanco",
     color: Colors.white,
     value: 9,
     multiplier: null,
@@ -83,17 +83,17 @@ enum Band implements Comparable<Band> {
     temperatureCoefficient: null,
   ),
   gold(
-    name: "Naranja",
+    name: "Oro",
     color: Color(0xffffd700),
-    value: 9,
+    value: null,
     multiplier: null,
     tolerance: "±5% (J)",
     temperatureCoefficient: null,
   ),
   silver(
-    name: "Naranja",
+    name: "Plata",
     color: Color(0xffc0c0c0),
-    value: 9,
+    value: null,
     multiplier: null,
     tolerance: "±10% (K)",
     temperatureCoefficient: null,
