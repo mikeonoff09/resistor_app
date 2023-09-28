@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:resistor_app/config/constants/padding.dart';
+import 'package:resistor_app/domain/entities/band.dart';
 import 'package:resistor_app/presentation/widgets/background_widget.dart';
 import 'package:resistor_app/presentation/widgets/title_widget.dart';
 import 'package:resistor_app/theme/app_theme.dart';
@@ -177,14 +178,20 @@ class _FourBandsView extends StatelessWidget {
   }
 }
 
-const List<String> _fruitNames = <String>[
-  'Apple',
-  'Mango',
-  'Banana',
-  'Orange',
-  'Pineapple',
-  'Strawberry',
+const List<Band> _bandColors = <Band>[
+  Band.black,
+  Band.brown,
+  Band.red,
+  Band.orange,
+  Band.yellow,
+  Band.green,
+  Band.blue,
+  Band.violet,
+  Band.grey,
+  Band.white,
 ];
+
+
 
 class FourBandResistor extends StatefulWidget {
   final double width;
@@ -215,7 +222,22 @@ class _FourBandResistorState extends State<FourBandResistor> {
         // Use a SafeArea widget to avoid system overlaps.
         child: SafeArea(
           top: false,
-          child: child,
+          child: Column(
+            children: [
+              Expanded(child: child),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Expanded(
+                    child: Center(
+                      child: Text("Cerrar"),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -223,8 +245,8 @@ class _FourBandResistorState extends State<FourBandResistor> {
 
   @override
   Widget build(BuildContext context) {
-    int _selectedFruit = 0;
-    const double _kItemExtent = 32.0;
+    int selectedBandColorIndex = 0;
+    const double kItemExtent = 32.0;
     return SizedBox(
       height: widget.height,
       width: widget.width,
@@ -263,22 +285,65 @@ class _FourBandResistorState extends State<FourBandResistor> {
                 onTap: () => _showDialog(
                   CupertinoPicker(
                     magnification: 1.22,
+                    backgroundColor:
+                        AppTheme().themeData.scaffoldBackgroundColor,
                     squeeze: 1.2,
                     useMagnifier: true,
-                    itemExtent: _kItemExtent,
+                    looping: true,
+                    itemExtent: kItemExtent,
+
                     // This sets the initial item.
                     scrollController: FixedExtentScrollController(
-                      initialItem: _selectedFruit,
+                      initialItem: selectedBandColorIndex,
                     ),
                     // This is called when selected item is changed.
                     onSelectedItemChanged: (int selectedItem) {
                       setState(() {
-                        _selectedFruit = selectedItem;
+                        selectedBandColorIndex = selectedItem;
                       });
                     },
                     children:
-                        List<Widget>.generate(_fruitNames.length, (int index) {
-                      return Center(child: Text(_fruitNames[index]));
+                        List<Widget>.generate(_bandColors.length, (index) {
+                      return Expanded(
+                        child: Container(
+                          color: _bandColors[index].color,
+                          width: 150,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: AppPadding.large,
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    _bandColors[index].value.toString(),
+                                    style: GoogleFonts.mulish(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800,
+                                      color: _bandColors[index].color !=
+                                              Colors.white
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                  Expanded(child: Container()),
+                                  Text(
+                                    _bandColors[index].name,
+                                    style: GoogleFonts.mulish(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800,
+                                      color: _bandColors[index].color !=
+                                              Colors.white
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
                     }),
                   ),
                 ),
