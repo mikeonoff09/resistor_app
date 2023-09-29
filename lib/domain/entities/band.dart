@@ -1,7 +1,9 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 
 // resistor band significant figures
-enum Band implements Comparable<Band> {
+enum ColorCode implements Comparable<ColorCode> {
   black(
     name: "Negro",
     color: Colors.black,
@@ -107,7 +109,7 @@ enum Band implements Comparable<Band> {
     temperatureCoefficient: null,
   );
 
-  const Band({
+  const ColorCode({
     required this.name,
     required this.color,
     required this.value,
@@ -124,5 +126,65 @@ enum Band implements Comparable<Band> {
   final String? temperatureCoefficient;
 
   @override
-  int compareTo(Band other) => value ?? 0;
+  int compareTo(ColorCode other) => value ?? 0;
 }
+
+const List<ColorCode> bandDigitsColorCodes = <ColorCode>[
+  ColorCode.black,
+  ColorCode.brown,
+  ColorCode.red,
+  ColorCode.orange,
+  ColorCode.yellow,
+  ColorCode.green,
+  ColorCode.blue,
+  ColorCode.violet,
+  ColorCode.grey,
+  ColorCode.white,
+  ColorCode.none
+];
+
+const List<ColorCode> multiplierColorCodes = <ColorCode>[
+  ColorCode.black,
+  ColorCode.brown,
+  ColorCode.red,
+  ColorCode.orange,
+  ColorCode.yellow,
+  ColorCode.green,
+  ColorCode.blue,
+  ColorCode.violet,
+  ColorCode.grey,
+  ColorCode.white,
+  ColorCode.gold,
+  ColorCode.silver,
+  ColorCode.none
+];
+
+const List<ColorCode> toleranceColorCodes = <ColorCode>[
+  ColorCode.brown,
+  ColorCode.red,
+  ColorCode.orange,
+  ColorCode.yellow,
+  ColorCode.green,
+  ColorCode.blue,
+  ColorCode.violet,
+  ColorCode.grey,
+  ColorCode.gold,
+  ColorCode.silver,
+  ColorCode.none
+];
+
+const List<ColorCode> temperatureCoefficientColorCodes = <ColorCode>[
+  ColorCode.black,
+  ColorCode.brown,
+  ColorCode.red,
+  ColorCode.orange,
+  ColorCode.yellow,
+  ColorCode.green,
+  ColorCode.blue,
+  ColorCode.violet,
+  ColorCode.grey,
+  ColorCode.white,
+  ColorCode.gold,
+  ColorCode.silver,
+  ColorCode.none
+];

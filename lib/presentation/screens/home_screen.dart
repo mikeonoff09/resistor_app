@@ -178,17 +178,17 @@ class _FourBandsView extends StatelessWidget {
   }
 }
 
-const List<Band> _bandColors = <Band>[
-  Band.black,
-  Band.brown,
-  Band.red,
-  Band.orange,
-  Band.yellow,
-  Band.green,
-  Band.blue,
-  Band.violet,
-  Band.grey,
-  Band.white,
+const List<ColorCode> _bandColors = <ColorCode>[
+  ColorCode.black,
+  ColorCode.brown,
+  ColorCode.red,
+  ColorCode.orange,
+  ColorCode.yellow,
+  ColorCode.green,
+  ColorCode.blue,
+  ColorCode.violet,
+  ColorCode.grey,
+  ColorCode.white,
 ];
 
 
