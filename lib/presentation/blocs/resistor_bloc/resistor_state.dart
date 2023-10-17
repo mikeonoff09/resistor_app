@@ -12,20 +12,23 @@ abstract class ResistorState extends Equatable {
 class ResistorInitial extends ResistorState {
   const ResistorInitial(Model model) : super(model);
 }
+class NewResistorState extends ResistorState {
+  const NewResistorState(Model model) : super(model);
+}
 
 class Model extends Equatable {
-  final ColorCode band1;
-  final ColorCode band2;
-  final ColorCode band3;
+  final ColorCode firstBand;
+  final ColorCode secondBand;
+  final ColorCode thirdBand;
   final ColorCode multiplier;
   final ColorCode tolerance;
   final ColorCode temperatureCoefficient;
   final Resistor resistor;
 
   const Model({
-    this.band1 = ColorCode.none,
-    this.band2 = ColorCode.none,
-    this.band3 = ColorCode.none,
+    this.firstBand = ColorCode.none,
+    this.secondBand = ColorCode.none,
+    this.thirdBand = ColorCode.none,
     this.multiplier = ColorCode.none,
     this.tolerance = ColorCode.none,
     this.temperatureCoefficient = ColorCode.none,
@@ -37,9 +40,9 @@ class Model extends Equatable {
   });
 
   Model copyWith({
-    ColorCode? band1,
-    ColorCode? band2,
-    ColorCode? band3,
+    ColorCode? firstBand,
+    ColorCode? secondBand,
+    ColorCode? thirdBand,
     ColorCode? multiplier,
     ColorCode? tolerance,
     ColorCode? temperatureCoefficient,
@@ -47,9 +50,9 @@ class Model extends Equatable {
   }) {
     return Model(
       resistor: resistor ?? this.resistor,
-      band1: band1 ?? this.band1,
-      band2: band2 ?? this.band2,
-      band3: band3 ?? this.band3,
+      firstBand: firstBand ?? this.firstBand,
+      secondBand: secondBand ?? this.secondBand,
+      thirdBand: thirdBand ?? this.thirdBand,
       multiplier: multiplier ?? this.multiplier,
       tolerance: tolerance ?? this.tolerance,
       temperatureCoefficient:
@@ -60,9 +63,9 @@ class Model extends Equatable {
   @override
   List<Object?> get props => [
         resistor,
-        band1,
-        band2,
-        band3,
+        firstBand,
+        secondBand,
+        thirdBand,
         multiplier,
         tolerance,
         temperatureCoefficient,

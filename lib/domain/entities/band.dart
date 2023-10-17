@@ -140,7 +140,7 @@ const List<ColorCode> bandDigitsColorCodes = <ColorCode>[
   ColorCode.violet,
   ColorCode.grey,
   ColorCode.white,
-  ColorCode.none
+  // ColorCode.none
 ];
 
 const List<ColorCode> multiplierColorCodes = <ColorCode>[
@@ -156,7 +156,7 @@ const List<ColorCode> multiplierColorCodes = <ColorCode>[
   ColorCode.white,
   ColorCode.gold,
   ColorCode.silver,
-  ColorCode.none
+  // ColorCode.none
 ];
 
 const List<ColorCode> toleranceColorCodes = <ColorCode>[
@@ -170,7 +170,7 @@ const List<ColorCode> toleranceColorCodes = <ColorCode>[
   ColorCode.grey,
   ColorCode.gold,
   ColorCode.silver,
-  ColorCode.none
+  // ColorCode.none
 ];
 
 const List<ColorCode> temperatureCoefficientColorCodes = <ColorCode>[
@@ -186,5 +186,5 @@ const List<ColorCode> temperatureCoefficientColorCodes = <ColorCode>[
   ColorCode.white,
   ColorCode.gold,
   ColorCode.silver,
-  ColorCode.none
+  // ColorCode.none
 ];

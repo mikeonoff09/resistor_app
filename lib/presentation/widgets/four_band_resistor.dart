@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:resistor_app/config/constants/padding.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:resistor_app/domain/entities/band.dart';
-import 'package:resistor_app/theme/app_theme.dart';
+import 'package:resistor_app/presentation/blocs/resistor_bloc/resistor_bloc.dart';
+import 'package:resistor_app/presentation/widgets/colors_dialog.dart';
 
 class FourBandResistor extends StatefulWidget {
   final double width;
@@ -19,7 +19,7 @@ class FourBandResistor extends StatefulWidget {
 }
 
 class _FourBandResistorState extends State<FourBandResistor> {
-  void _showDialog(Widget child) {
+  void showDialog(Widget child) {
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => Container(
@@ -42,7 +42,7 @@ class _FourBandResistorState extends State<FourBandResistor> {
                 child: ElevatedButton(
                   onPressed: () => Navigator.pop(context),
                   child: const Center(
-                    child: Text("Cerrar"),
+                    child: Text("Aceptar"),
                   ),
                 ),
               ),
@@ -55,8 +55,6 @@ class _FourBandResistorState extends State<FourBandResistor> {
 
   @override
   Widget build(BuildContext context) {
-    int selectedBandColorIndex = 0;
-    const double kItemExtent = 32.0;
     return SizedBox(
       height: widget.height,
       width: widget.width,
@@ -92,69 +90,14 @@ class _FourBandResistorState extends State<FourBandResistor> {
               ),
               child: InkWell(
                 child: Container(),
-                onTap: () => _showDialog(
-                  CupertinoPicker(
-                    magnification: 1.22,
-                    backgroundColor:
-                        AppTheme().themeData.scaffoldBackgroundColor,
-                    squeeze: 1.2,
-                    useMagnifier: true,
-                    looping: true,
-                    itemExtent: kItemExtent,
-
-                    // This sets the initial item.
-                    scrollController: FixedExtentScrollController(
-                      initialItem: selectedBandColorIndex,
-                    ),
-                    // This is called when selected item is changed.
-                    onSelectedItemChanged: (int selectedItem) {
-                      setState(() {
-                        selectedBandColorIndex = selectedItem;
-                      });
-                    },
-                    children: List<Widget>.generate(bandDigitsColorCodes.length,
-                        (index) {
-                      return Container(
-                        color: bandDigitsColorCodes[index].color,
-                        width: 150,
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: AppPadding.large,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  bandDigitsColorCodes[index].value.toString(),
-                                  style: GoogleFonts.mulish(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w800,
-                                    color: bandDigitsColorCodes[index].color !=
-                                            Colors.white
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  bandDigitsColorCodes[index].name,
-                                  style: GoogleFonts.mulish(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w800,
-                                    color: bandDigitsColorCodes[index].color !=
-                                            Colors.white
-                                        ? Colors.white
-                                        : Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      );
-                    }),
-                  ),
-                ),
+                onTap: () => showDialog(ColorsDialogContent(
+                  onChange: (newColorCode) {
+                    Modular.get<ResistorBloc>().add(FirstBandChangedEvent(
+                      firstBand: newColorCode,
+                    ));
+                  },
+                  colorsCodes: bandDigitsColorCodes,
+                )),
               ),
             ),
           ),
@@ -166,6 +109,17 @@ class _FourBandResistorState extends State<FourBandResistor> {
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 211, 211, 211),
               ),
+              child: InkWell(
+                child: Container(),
+                onTap: () => showDialog(ColorsDialogContent(
+                  onChange: (newColorCode) {
+                    Modular.get<ResistorBloc>().add(SecondBandChangedEvent(
+                      secondBand: newColorCode,
+                    ));
+                  },
+                  colorsCodes: bandDigitsColorCodes,
+                )),
+              ),
             ),
           ),
           Positioned(
@@ -176,6 +130,17 @@ class _FourBandResistorState extends State<FourBandResistor> {
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 211, 211, 211),
               ),
+              child: InkWell(
+                child: Container(),
+                onTap: () => showDialog(ColorsDialogContent(
+                  onChange: (newColorCode) {
+                    Modular.get<ResistorBloc>().add(MultiplierBandChangedEvent(
+                      multiplierBand: newColorCode,
+                    ));
+                  },
+                  colorsCodes: multiplierColorCodes,
+                )),
+              ),
             ),
           ),
           Positioned(
@@ -185,6 +150,17 @@ class _FourBandResistorState extends State<FourBandResistor> {
               width: widget.width * 0.1,
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 211, 211, 211),
+              ),
+              child: InkWell(
+                child: Container(),
+                onTap: () => showDialog(ColorsDialogContent(
+                  onChange: (newColorCode) {
+                    Modular.get<ResistorBloc>().add(ToleranceBandChangedEvent(
+                      toleranceBand: newColorCode,
+                    ));
+                  },
+                  colorsCodes: toleranceColorCodes,
+                )),
               ),
             ),
           ),
