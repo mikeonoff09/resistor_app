@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:resistor_app/config/constants/padding.dart';
 import 'package:resistor_app/presentation/blocs/resistor_bloc/resistor_bloc.dart';
 import 'package:resistor_app/presentation/widgets/widgets.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FourBandsView extends StatelessWidget {
   const FourBandsView({
@@ -78,7 +79,7 @@ class _Body extends StatelessWidget {
           padding: const EdgeInsets.only(top: AppPadding.extraLarge),
           child: Center(
             child: Text(
-              "* toca la banda para seleccionar color",
+              '* ${AppLocalizations.of(context)?.touchToSelectColor ?? ''}',
               style: GoogleFonts.mulish(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,

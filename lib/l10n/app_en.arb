@@ -1,0 +1,6 @@
+{
+  "helloWorld": "Hello World!",
+  "homeTitle": "Resistor Color Calculator",
+  "touchToSelectColor": "Touch the band to select color",
+  "bands":"Bands"
+}

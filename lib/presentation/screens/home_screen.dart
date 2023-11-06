@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:resistor_app/presentation/widgets/widgets.dart';
 import 'package:resistor_app/theme/app_theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -17,26 +18,26 @@ class _HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const Stack(
+    return const Scaffold(
+      body: Stack(
         children: [
           BackgroundWidget(),
           _CalculatorWidget(),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: AppTheme().themeData.primaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
-        ),
-        child: const Icon(
-          Icons.menu,
-          size: 35,
-          color: Colors.white,
-        ),
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {},
+      //   backgroundColor: AppTheme().themeData.primaryColor,
+      //   shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.circular(30),
+      //   ),
+      //   child: const Icon(
+      //     Icons.menu,
+      //     size: 35,
+      //     color: Colors.white,
+      //   ),
+      // ),
     );
   }
 }
@@ -56,11 +57,21 @@ class _CalculatorWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(height: padding.top),
-          const SizedBox(
-            height: 50,
-            child: Placeholder(),
-          ),
+          const SizedBox(height: 25),
+          // const SizedBox(
+          //   height: 50,
+          //   child: Row(
+          //     children: [
+          //       Spacer(),
+          //       Padding(
+          //         padding: EdgeInsets.only(right: 16.0),
+          //         child: Icon(Icons.candlestick_chart),
+          //       ),
+          //     ],
+          //   ),
+          // ),
           const TitleWidget(),
+          const SizedBox(height: 25),
           Center(
             child: Container(
               width: 300,
@@ -87,9 +98,9 @@ class _CalculatorWidget extends StatelessWidget {
                 ),
                 labelColor: Colors.white,
                 dividerColor: Colors.transparent,
-                tabs: const <Widget>[
+                tabs: <Widget>[
                   Tab(
-                    text: "4 Bandas",
+                    text: "4 ${AppLocalizations.of(context)?.bands ?? ''}",
                   ),
                   // Tab(
                   //   text: "5 Bandas",
