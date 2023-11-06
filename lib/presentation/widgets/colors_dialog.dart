@@ -11,11 +11,15 @@ class ColorsDialogContent extends StatefulWidget {
 
   final Function(ColorCode value) onChange;
   final List<ColorCode> colorsCodes;
+  final ColorCode currentColorCode;
+  final Band band;
 
   const ColorsDialogContent({
     Key? key,
     required this.onChange,
     required this.colorsCodes,
+    required this.band,
+    required this.currentColorCode,
   }) : super(key: key);
 }
 
@@ -24,7 +28,11 @@ class ColorsDialogContentState extends State<ColorsDialogContent> {
 
   @override
   Widget build(BuildContext context) {
-    int selectedBandColorIndex = 0;
+    int selectedBandColorIndex = widget.colorsCodes.indexWhere(
+      (element) => element == widget.currentColorCode,
+    );
+    selectedBandColorIndex =
+        selectedBandColorIndex > 0 ? selectedBandColorIndex : 0;
     const double kItemExtent = 32.0;
     return CupertinoPicker(
       magnification: 1.22,
@@ -38,11 +46,8 @@ class ColorsDialogContentState extends State<ColorsDialogContent> {
       scrollController: FixedExtentScrollController(
         initialItem: selectedBandColorIndex,
       ),
-      // This is called when selected item is changed.
       onSelectedItemChanged: (int selectedItem) {
-        setState(() {
-          selectedBandColorIndex = selectedItem;
-        });
+        widget.onChange(widget.colorsCodes[selectedItem]);
       },
       children: List<Widget>.generate(widget.colorsCodes.length, (index) {
         return Container(
@@ -56,7 +61,9 @@ class ColorsDialogContentState extends State<ColorsDialogContent> {
               child: Row(
                 children: [
                   Text(
-                    widget.colorsCodes[index].value.toString(),
+                    widget.band == Band.digit
+                        ? widget.colorsCodes[index].value.toString()
+                        : '',
                     style: GoogleFonts.mulish(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,

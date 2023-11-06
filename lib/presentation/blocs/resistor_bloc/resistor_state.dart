@@ -6,68 +6,77 @@ abstract class ResistorState extends Equatable {
   final Model model;
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [model];
 }
 
-class ResistorInitial extends ResistorState {
-  const ResistorInitial(Model model) : super(model);
+class ResistorInitialState extends ResistorState {
+  const ResistorInitialState(Model model) : super(model);
 }
+
 class NewResistorState extends ResistorState {
   const NewResistorState(Model model) : super(model);
 }
 
 class Model extends Equatable {
-  final ColorCode firstBand;
-  final ColorCode secondBand;
-  final ColorCode thirdBand;
-  final ColorCode multiplier;
-  final ColorCode tolerance;
-  final ColorCode temperatureCoefficient;
+  final int numberOfBands;
+  final ColorCode firstBandColorCode;
+  final ColorCode secondBandColorCode;
+  final ColorCode thirdBandColorCode;
+  final ColorCode multiplierColorCode;
+  final ColorCode toleranceColorCode;
+  final ColorCode temperatureCoefficientColorCode;
   final Resistor resistor;
 
   const Model({
-    this.firstBand = ColorCode.none,
-    this.secondBand = ColorCode.none,
-    this.thirdBand = ColorCode.none,
-    this.multiplier = ColorCode.none,
-    this.tolerance = ColorCode.none,
-    this.temperatureCoefficient = ColorCode.none,
+    this.numberOfBands = 4,
+    this.firstBandColorCode = ColorCode.none,
+    this.secondBandColorCode = ColorCode.none,
+    this.thirdBandColorCode = ColorCode.none,
+    this.multiplierColorCode = ColorCode.none,
+    this.toleranceColorCode = ColorCode.none,
+    this.temperatureCoefficientColorCode = ColorCode.none,
     this.resistor = const Resistor(
       resistance: '0',
       tolerance: '0',
       temperatureCoefficient: '0',
     ),
-  });
+  }) : assert(
+          numberOfBands == 4 || numberOfBands == 5 || numberOfBands == 6,
+          'it should have only 4, 5 or 6 bands',
+        );
 
   Model copyWith({
-    ColorCode? firstBand,
-    ColorCode? secondBand,
-    ColorCode? thirdBand,
-    ColorCode? multiplier,
-    ColorCode? tolerance,
-    ColorCode? temperatureCoefficient,
+    int? numberOfBands,
+    ColorCode? firstBandColorCode,
+    ColorCode? secondBandColorCode,
+    ColorCode? thirdBandColorCode,
+    ColorCode? multiplierColorCode,
+    ColorCode? toleranceColorCode,
+    ColorCode? temperatureCoefficientColorCode,
     Resistor? resistor,
   }) {
     return Model(
+      numberOfBands: numberOfBands ?? this.numberOfBands,
       resistor: resistor ?? this.resistor,
-      firstBand: firstBand ?? this.firstBand,
-      secondBand: secondBand ?? this.secondBand,
-      thirdBand: thirdBand ?? this.thirdBand,
-      multiplier: multiplier ?? this.multiplier,
-      tolerance: tolerance ?? this.tolerance,
-      temperatureCoefficient:
-          temperatureCoefficient ?? this.temperatureCoefficient,
+      firstBandColorCode: firstBandColorCode ?? this.firstBandColorCode,
+      secondBandColorCode: secondBandColorCode ?? this.secondBandColorCode,
+      thirdBandColorCode: thirdBandColorCode ?? this.thirdBandColorCode,
+      multiplierColorCode: multiplierColorCode ?? this.multiplierColorCode,
+      toleranceColorCode: toleranceColorCode ?? this.toleranceColorCode,
+      temperatureCoefficientColorCode: temperatureCoefficientColorCode ??
+          this.temperatureCoefficientColorCode,
     );
   }
 
   @override
   List<Object?> get props => [
+        numberOfBands,
         resistor,
-        firstBand,
-        secondBand,
-        thirdBand,
-        multiplier,
-        tolerance,
-        temperatureCoefficient,
+        firstBandColorCode,
+        secondBandColorCode,
+        thirdBandColorCode,
+        multiplierColorCode,
+        toleranceColorCode,
+        temperatureCoefficientColorCode,
       ];
 }

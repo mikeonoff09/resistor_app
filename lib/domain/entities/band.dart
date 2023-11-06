@@ -80,7 +80,7 @@ enum ColorCode implements Comparable<ColorCode> {
     name: "Blanco",
     color: Colors.white,
     value: 9,
-    multiplier: null,
+    multiplier: 1000000000,
     tolerance: null,
     temperatureCoefficient: null,
   ),
@@ -88,7 +88,7 @@ enum ColorCode implements Comparable<ColorCode> {
     name: "Oro",
     color: Color(0xffffd700),
     value: null,
-    multiplier: null,
+    multiplier: 0.1,
     tolerance: "±5% (J)",
     temperatureCoefficient: null,
   ),
@@ -96,7 +96,7 @@ enum ColorCode implements Comparable<ColorCode> {
     name: "Plata",
     color: Color(0xffc0c0c0),
     value: null,
-    multiplier: null,
+    multiplier: 0.01,
     tolerance: "±10% (K)",
     temperatureCoefficient: null,
   ),
@@ -121,12 +121,19 @@ enum ColorCode implements Comparable<ColorCode> {
   final String name;
   final Color? color;
   final int? value;
-  final int? multiplier;
+  final double? multiplier;
   final String? tolerance;
   final String? temperatureCoefficient;
 
   @override
   int compareTo(ColorCode other) => value ?? 0;
+}
+
+enum Band {
+  digit,
+  multiplier,
+  tolerance,
+  temperatureCoefficient,
 }
 
 const List<ColorCode> bandDigitsColorCodes = <ColorCode>[

@@ -6,6 +6,22 @@ sealed class ResistorEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class ResistorInitialEvent extends ResistorEvent {
+  ResistorInitialEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class NumberOfBandsChangedEvent extends ResistorEvent {
+  final int numberOfBands;
+
+  NumberOfBandsChangedEvent({required this.numberOfBands});
+
+  @override
+  List<Object> get props => [numberOfBands];
+}
+
 class FirstBandChangedEvent extends ResistorEvent {
   final ColorCode firstBand;
 
