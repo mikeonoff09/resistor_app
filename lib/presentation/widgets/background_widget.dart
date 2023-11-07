@@ -13,6 +13,7 @@ class BackgroundWidget extends StatelessWidget {
       height: 245,
       child: Stack(
         children: [
+          Container(height: 245),
           Positioned(
             top: -50,
             left: 200,

@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: _HomeView());
+    return const _HomeView();
   }
 }
 
@@ -21,11 +21,13 @@ class _HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Stack(
-        children: [
-          BackgroundWidget(),
-          _CalculatorWidget(),
-        ],
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            BackgroundWidget(),
+            _CalculatorWidget(),
+          ],
+        ),
       ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       // floatingActionButton: FloatingActionButton(
@@ -122,7 +124,8 @@ class _CalculatorWidget extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
+          SizedBox(
+            height: width,
             child: TabBarView(
               children: <Widget>[
                 FourBandsView(width: width),
