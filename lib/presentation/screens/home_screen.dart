@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:resistor_app/presentation/blocs/resistor_bloc/resistor_bloc.dart';
 import 'package:resistor_app/presentation/widgets/widgets.dart';
 import 'package:resistor_app/theme/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -96,6 +98,14 @@ class _CalculatorWidget extends StatelessWidget {
                   color: AppTheme().themeData.primaryColor,
                   borderRadius: BorderRadius.circular(15),
                 ),
+                onTap: (value) {
+                  final numberOfBands = 4 + value;
+                  Modular.get<ResistorBloc>().add(
+                    NumberOfBandsChangedEvent(
+                      numberOfBands: numberOfBands,
+                    ),
+                  );
+                },
                 labelColor: Colors.white,
                 dividerColor: Colors.transparent,
                 tabs: <Widget>[
