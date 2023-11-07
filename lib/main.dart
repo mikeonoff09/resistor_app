@@ -4,8 +4,16 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:resistor_app/app_module.dart';
 import 'package:resistor_app/theme/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(ModularApp(module: AppModule(), child: const MainApp()));
 }
 
@@ -17,7 +25,8 @@ class MainApp extends StatelessWidget {
     return MaterialApp.router(
       title: "Resistance",
       routerConfig: Modular.routerConfig,
-      theme: AppTheme().themeData, // TODO: Inject this as singleton in AppModule
+      theme:
+          AppTheme().themeData, // TODO: Inject this as singleton in AppModule
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

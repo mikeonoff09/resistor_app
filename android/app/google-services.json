@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "441523157674",
+    "project_id": "resistor-app",
+    "storage_bucket": "resistor-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441523157674:android:ab4178d93648cf1f6feed3",
+        "android_client_info": {
+          "package_name": "com.example.resistor_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4Wa4H8i4ou8QpnAzXsdrWF1DK-5rQlns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
